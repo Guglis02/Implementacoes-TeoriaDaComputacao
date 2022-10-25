@@ -6,3 +6,11 @@ C:\Users\Gmfreitas\Documents\MaquinaDeTuringReversivel\MaquinaDeTuringReversivel
 C:\Users\Gmfreitas\Documents\MaquinaDeTuringReversivel\MaquinaDeTuringReversivel\obj\Debug\MaquinaDeTuringReversivel.csproj.CoreCompileInputs.cache
 C:\Users\Gmfreitas\Documents\MaquinaDeTuringReversivel\MaquinaDeTuringReversivel\obj\Debug\MaquinaDeTuringReversivel.exe
 C:\Users\Gmfreitas\Documents\MaquinaDeTuringReversivel\MaquinaDeTuringReversivel\obj\Debug\MaquinaDeTuringReversivel.pdb
+F:\GitHub\ReversibleTuringMachine\bin\Debug\MaquinaDeTuringReversivel.exe.config
+F:\GitHub\ReversibleTuringMachine\bin\Debug\MaquinaDeTuringReversivel.exe
+F:\GitHub\ReversibleTuringMachine\bin\Debug\MaquinaDeTuringReversivel.pdb
+F:\GitHub\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.csproj.AssemblyReference.cache
+F:\GitHub\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.csproj.SuggestedBindingRedirects.cache
+F:\GitHub\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.csproj.CoreCompileInputs.cache
+F:\GitHub\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.exe
+F:\GitHub\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.pdb
