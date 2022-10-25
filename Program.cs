@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MaquinaDeTuringReversivel
@@ -13,7 +14,6 @@ namespace MaquinaDeTuringReversivel
     /// </summary>
     internal class Program
     {
-        //private static string path = @"./entrada-quintupla.txt";
         static int numberOfStates;
         static int inputAlphabetSize;
         static int tapeAlphabetSize;
@@ -53,19 +53,26 @@ namespace MaquinaDeTuringReversivel
             input = lines.Last().Split();
             lines.RemoveAt(lines.Count() - 1);
 
+            Regex pattern = new Regex(@"\((?<InputState>.+),(?<InputSymbol>.+)\)=\((?<OutputState>.+),(?<OutputSymbol>.+),(?<OutputDirection>.+)\)");
+
             Console.WriteLine($"Numero de estados = {numberOfStates}\n" +
                 $"Tamanho alfabeto de entrada = {inputAlphabetSize}\n" +
                 $"Tamanho alfabeto da fita = {tapeAlphabetSize}\n" +
-                $"N de transicoes = {numberOfTransitions}\n" +
-                $"Estados = {states[0]}\n" +
-                $"Alfabeto de entrada = {inputAlphabet}\n" +
-                $"Alfabeto da fita = {tapeAlphabet}\n" +
-                $"Entrada = {input}\n");
+                $"N de transicoes = {numberOfTransitions}\n");
 
-            /*foreach (string line in lines)
+
+            foreach (string line in lines)
             {
-                Console.WriteLine(line);
-            }*/
+                Match match = pattern.Match(line);
+                if (match.Success)
+                {
+                    Console.WriteLine($"Estado atual {match.Groups["InputState"].Value};" +
+                        $"Simbolo lido {match.Groups["InputSymbol"].Value};" +
+                        $"Proximo estado {match.Groups["OutputState"].Value};" +
+                        $"Simbolo escrito {match.Groups["OutputSymbol"].Value};" +
+                        $"Movimento {match.Groups["OutputDirection"].Value}");
+                }
+            }
         }
     }
 }
