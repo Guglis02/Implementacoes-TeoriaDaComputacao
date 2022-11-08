@@ -9,9 +9,9 @@ namespace MaquinaDeTuringReversivel
     public struct QuintupleIn : IEquatable<QuintupleIn>
     {
         public readonly string inputState;
-        public readonly string inputSymbol;
+        public readonly char inputSymbol;
 
-        public QuintupleIn(string inputState, string inputSymbol)
+        public QuintupleIn(string inputState, char inputSymbol)
         {
             this.inputState = inputState;
             this.inputSymbol = inputSymbol;
@@ -31,10 +31,10 @@ namespace MaquinaDeTuringReversivel
     public struct QuintupleOut
     {
         public readonly string outputState;
-        public readonly string outputSymbol;
+        public readonly char outputSymbol;
         public readonly string direction;
 
-        public QuintupleOut(string outputState, string outputSymbol, string direction)
+        public QuintupleOut(string outputState, char outputSymbol, string direction)
         {
             this.outputState = outputState;
             this.outputSymbol = outputSymbol;

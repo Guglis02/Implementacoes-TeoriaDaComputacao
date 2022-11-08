@@ -10,7 +10,7 @@ namespace MaquinaDeTuringReversivel
     internal class TuringMachine
     {
         public string state;
-        public string symbol
+        public char symbol
         {
             get
             {
@@ -18,17 +18,17 @@ namespace MaquinaDeTuringReversivel
                 {
                     return tape[head];
                 }
-                return "B";
+                return 'B';
             }
         }
 
         private int head;
-        private string[] tape;
+        private char[] tape;
         private Transitions transitions;
 
-        public TuringMachine(string[] tape, Transitions transitions)
+        public TuringMachine(string tape, Transitions transitions)
         {
-            this.tape = tape;
+            this.tape = tape.ToCharArray();
             this.transitions = transitions;
             this.head = 0;
             this.state = transitions.InitialState;
@@ -40,6 +40,8 @@ namespace MaquinaDeTuringReversivel
             {
                 if (!Compute())
                 {
+                    Console.WriteLine(state);
+
                     return false;
                 }
             }
@@ -52,6 +54,7 @@ namespace MaquinaDeTuringReversivel
 
             if (!transitions.ValidTransition(inp))
             {
+                Console.WriteLine(inp.ToString());
                 return false;
             }
 
@@ -64,7 +67,7 @@ namespace MaquinaDeTuringReversivel
             return true;
         }
 
-        private void Write(string symbol)
+        private void Write(char symbol)
         {
             if (head < tape.Length)
             {
@@ -72,7 +75,7 @@ namespace MaquinaDeTuringReversivel
             }
             else
             {
-                tape = (string[])tape.Append(symbol);
+                tape = tape.Append(symbol).ToArray();
             }
         }
 

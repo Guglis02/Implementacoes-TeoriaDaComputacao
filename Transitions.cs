@@ -20,7 +20,7 @@ namespace MaquinaDeTuringReversivel
             quintuples = new Dictionary<QuintupleIn, QuintupleOut>();
         }
 
-        public void AddQuintuple(string inputState, string inputSymbol, string outputState, string outputSymbol, string direction)
+        public void AddQuintuple(string inputState, char inputSymbol, string outputState, char outputSymbol, string direction)
         {
             QuintupleIn input = new QuintupleIn(inputState, inputSymbol);
             QuintupleOut output = new QuintupleOut(outputState, outputSymbol, direction);
@@ -33,7 +33,7 @@ namespace MaquinaDeTuringReversivel
             return quintuples.ContainsKey(input);
         }
 
-        public QuintupleOut GetTransition(string inputState, string inputSymbol)
+        public QuintupleOut GetTransition(string inputState, char inputSymbol)
         {
             QuintupleIn input = new QuintupleIn(inputState, inputSymbol);
             return GetTransition(input);

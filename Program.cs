@@ -19,7 +19,7 @@ namespace MaquinaDeTuringReversivel
         static int tapeAlphabetSize;
         static int numberOfTransitions;
 
-        static string[] input;
+        static string input;
         static string[] states;
         static string[] inputAlphabet;
         static string[] tapeAlphabet;
@@ -50,7 +50,7 @@ namespace MaquinaDeTuringReversivel
             tapeAlphabet = lines[0].Split(' ');
             lines.RemoveAt(0);
 
-            input = lines.Last().Split();
+            input = lines.Last();
             lines.RemoveAt(lines.Count() - 1);
 
             Regex pattern = new Regex(@"\((?<InputState>.+),(?<InputSymbol>.+)\)=\((?<OutputState>.+),(?<OutputSymbol>.+),(?<OutputDirection>.+)\)");
@@ -68,9 +68,9 @@ namespace MaquinaDeTuringReversivel
                 if (match.Success)
                 {
                     transitions.AddQuintuple(match.Groups["InputState"].Value,
-                                            match.Groups["InputSymbol"].Value,
+                                            match.Groups["InputSymbol"].Value[0],
                                             match.Groups["OutputState"].Value,
-                                            match.Groups["OutputSymbol"].Value,
+                                            match.Groups["OutputSymbol"].Value[0],
                                             match.Groups["OutputDirection"].Value);
 
                     //Console.WriteLine($"Estado atual {match.Groups["InputState"].Value};" +
