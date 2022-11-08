@@ -34,17 +34,20 @@ namespace MaquinaDeTuringReversivel
             this.state = transitions.InitialState;
         }
 
-        public bool Run()
+        public bool Run(out string output)
         {
             while (!string.Equals(state, transitions.EndState))
             {
                 if (!Compute())
                 {
-                    Console.WriteLine(state);
+                    output = tape.ToString();
 
                     return false;
                 }
             }
+
+            output = tape.ToString();
+
             return true;
         }
 

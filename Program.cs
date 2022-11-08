@@ -85,7 +85,7 @@ namespace MaquinaDeTuringReversivel
 
             TuringMachine turingMachine = new TuringMachine(input, transitions);
 
-            if (turingMachine.Run())
+            if (turingMachine.Run(out _))
             {
                 Console.Write("Computou");
             } else
