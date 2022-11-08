@@ -41,7 +41,7 @@ namespace MaquinaDeTuringReversivel
             GetQuantities(lines[0]);
             lines.RemoveAt(0);
 
-            states = lines[0].Split();
+            states = lines[0].Split(' ');
             lines.RemoveAt(0);
 
             inputAlphabet = lines[0].Split(' ');
@@ -55,22 +55,29 @@ namespace MaquinaDeTuringReversivel
 
             Regex pattern = new Regex(@"\((?<InputState>.+),(?<InputSymbol>.+)\)=\((?<OutputState>.+),(?<OutputSymbol>.+),(?<OutputDirection>.+)\)");
 
-            Console.WriteLine($"Numero de estados = {numberOfStates}\n" +
-                $"Tamanho alfabeto de entrada = {inputAlphabetSize}\n" +
-                $"Tamanho alfabeto da fita = {tapeAlphabetSize}\n" +
-                $"N de transicoes = {numberOfTransitions}\n");
+            //Console.WriteLine($"Numero de estados = {numberOfStates}\n" +
+            //    $"Tamanho alfabeto de entrada = {inputAlphabetSize}\n" +
+            //    $"Tamanho alfabeto da fita = {tapeAlphabetSize}\n" +
+            //    $"N de transicoes = {numberOfTransitions}\n");
 
+            Transitions transitions = new Transitions(states);
 
             foreach (string line in lines)
             {
                 Match match = pattern.Match(line);
                 if (match.Success)
                 {
-                    Console.WriteLine($"Estado atual {match.Groups["InputState"].Value};" +
-                        $"Simbolo lido {match.Groups["InputSymbol"].Value};" +
-                        $"Proximo estado {match.Groups["OutputState"].Value};" +
-                        $"Simbolo escrito {match.Groups["OutputSymbol"].Value};" +
-                        $"Movimento {match.Groups["OutputDirection"].Value}");
+                    transitions.AddQuintuple(match.Groups["InputState"].Value,
+                                            match.Groups["InputSymbol"].Value,
+                                            match.Groups["OutputState"].Value,
+                                            match.Groups["OutputSymbol"].Value,
+                                            match.Groups["OutputDirection"].Value);
+
+                    //Console.WriteLine($"Estado atual {match.Groups["InputState"].Value};" +
+                    //    $"Simbolo lido {match.Groups["InputSymbol"].Value};" +
+                    //    $"Proximo estado {match.Groups["OutputState"].Value};" +
+                    //    $"Simbolo escrito {match.Groups["OutputSymbol"].Value};" +
+                    //    $"Movimento {match.Groups["OutputDirection"].Value}");
                 }
             }
         }

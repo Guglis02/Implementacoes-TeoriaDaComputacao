@@ -6,21 +6,18 @@ using System.Threading.Tasks;
 
 namespace MaquinaDeTuringReversivel
 {
-    class States
+    class Transitions
     {
+        public string InitialState => states.First();
+        public string EndState => states.Last();
+
         private readonly Dictionary<QuintupleIn, QuintupleOut> quintuples;
+        private string[] states;
 
-        public States()
+        public Transitions(string[] states)
         {
+            this.states = states;
             quintuples = new Dictionary<QuintupleIn, QuintupleOut>();
-        }
-
-        public void AddQuintuples(string[] states)
-        {
-            for (int i = 0; i < states.Length; i++)
-            {
-                // quebra cada string em partes de input apropriado para AddQuintuple
-            }
         }
 
         public void AddQuintuple(string inputState, string inputSymbol, string outputState, string outputSymbol, string direction)
@@ -29,6 +26,11 @@ namespace MaquinaDeTuringReversivel
             QuintupleOut output = new QuintupleOut(outputState, outputSymbol, direction);
 
             quintuples.Add(input, output);
+        }
+
+        public bool ValidTransition(QuintupleIn input)
+        {
+            return quintuples.ContainsKey(input);
         }
 
         public QuintupleOut GetTransition(string inputState, string inputSymbol)
