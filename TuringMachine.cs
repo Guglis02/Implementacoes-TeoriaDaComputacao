@@ -85,13 +85,11 @@ namespace MaquinaDeTuringReversivel
         {
             switch (dir)
             {
-                case "+":
+                case "R":
                     head++;
                     break;
-                case "-":
+                case "L":
                     head--;
-                    break;
-                case "0":
                     break;
             }
             if (head < 0)

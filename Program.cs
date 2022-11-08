@@ -80,6 +80,19 @@ namespace MaquinaDeTuringReversivel
                     //    $"Movimento {match.Groups["OutputDirection"].Value}");
                 }
             }
+
+            Console.Write(transitions.ToString());
+
+            TuringMachine turingMachine = new TuringMachine(input, transitions);
+
+            if (turingMachine.Run())
+            {
+                Console.Write("Computou");
+            } else
+            {
+                Console.Write("Não computou");
+            }
+
         }
     }
 }
