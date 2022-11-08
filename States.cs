@@ -6,9 +6,22 @@ using System.Threading.Tasks;
 
 namespace MaquinaDeTuringReversivel
 {
-    class Quintuples
+    class States
     {
-        private readonly Dictionary<QuintupleIn, QuintupleOut> quintuples = new Dictionary<QuintupleIn, QuintupleOut>();
+        private readonly Dictionary<QuintupleIn, QuintupleOut> quintuples;
+
+        public States()
+        {
+            quintuples = new Dictionary<QuintupleIn, QuintupleOut>();
+        }
+
+        public void AddQuintuples(string[] states)
+        {
+            for (int i = 0; i < states.Length; i++)
+            {
+                // quebra cada string em partes de input apropriado para AddQuintuple
+            }
+        }
 
         public void AddQuintuple(string inputState, string inputSymbol, string outputState, string outputSymbol, string direction)
         {
