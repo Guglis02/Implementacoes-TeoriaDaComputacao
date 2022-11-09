@@ -70,6 +70,11 @@ namespace MaquinaDeTuringReversivel
                 && string.Equals(other.inputSymbol2, inputSymbol2)
                 && string.Equals(other.inputSymbol3, inputSymbol3);
         }
+
+        public override string ToString()
+        {
+            return $"{inputState}[{inputSymbol1},{inputSymbol2},{inputSymbol3}]";
+        }
     }
 
     public struct QuadrupleOut
@@ -85,6 +90,11 @@ namespace MaquinaDeTuringReversivel
             this.outputAction1 = outputAction1;
             this.outputAction2 = outputAction2;
             this.outputAction3 = outputAction3;
+        }
+
+        public override string ToString()
+        {
+            return $"[{outputAction1},{outputAction2},{outputAction3}]{outputState}";
         }
     }
 }

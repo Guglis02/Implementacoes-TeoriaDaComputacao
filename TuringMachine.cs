@@ -10,7 +10,7 @@ namespace MaquinaDeTuringReversivel
     internal class TuringMachine
     {
         public string state;
-        public char symbol
+        public char Symbol
         {
             get
             {
@@ -24,7 +24,7 @@ namespace MaquinaDeTuringReversivel
 
         private int head;
         private char[] tape;
-        private Transitions transitions;
+        private readonly Transitions transitions;
 
         public TuringMachine(string tape, Transitions transitions)
         {
@@ -53,7 +53,7 @@ namespace MaquinaDeTuringReversivel
 
         public bool Compute()
         {
-            QuintupleIn inp = new QuintupleIn(state, symbol);
+            QuintupleIn inp = new QuintupleIn(state, Symbol);
 
             if (!transitions.ValidTransition(inp))
             {

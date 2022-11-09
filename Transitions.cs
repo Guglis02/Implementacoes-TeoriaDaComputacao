@@ -12,7 +12,7 @@ namespace MaquinaDeTuringReversivel
         public string EndState => states.Last();
 
         private readonly Dictionary<QuintupleIn, QuintupleOut> quintuples;
-        private string[] states;
+        private readonly string[] states;
 
         public Transitions(string[] states)
         {
