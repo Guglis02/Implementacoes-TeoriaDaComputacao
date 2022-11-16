@@ -80,7 +80,7 @@ namespace MaquinaDeTuringReversivel
             outp = new QuadrupleOut($"C{transitions.EndState}", "B", step.ToString(), "B");
 
             // reverte
-            // fazer
+            
 
             return rTransitions;
         }

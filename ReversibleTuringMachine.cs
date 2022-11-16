@@ -22,7 +22,7 @@ namespace MaquinaDeTuringReversivel
                 {
                     return "/";
                 }
-                if (head1 < tape1.Count())
+                if (head1 < tape1.Count() && head1 >= 0)
                 {
                     return tape1[head1];
                 }
@@ -40,7 +40,7 @@ namespace MaquinaDeTuringReversivel
                 {
                     return "/";
                 }
-                if (head2 < tape2.Count())
+                if (head2 < tape2.Count() && head2 >= 0)
                 {
                     return tape2[head2];
                 }
@@ -58,7 +58,7 @@ namespace MaquinaDeTuringReversivel
                 {
                     return "/";
                 }
-                if (head3 < tape3.Count())
+                if (head3 < tape3.Count() && head3 >= 0)
                 {
                     return tape3[head3];
                 }
@@ -150,6 +150,9 @@ namespace MaquinaDeTuringReversivel
 
         private void Write1(string symbol)
         {
+            if (head1 < 0 && string.Equals(symbol, "B"))
+                return;
+
             if (head1 < tape1.Count())
             {
                 tape1[head1] = symbol;
@@ -162,6 +165,9 @@ namespace MaquinaDeTuringReversivel
 
         private void Write2(string symbol)
         {
+            if (head2 < 0 && string.Equals(symbol, "B"))
+                return;
+
             if (head2 < tape2.Count())
             {
                 tape2[head2] = symbol;
@@ -174,6 +180,9 @@ namespace MaquinaDeTuringReversivel
 
         private void Write3(string symbol)
         {
+            if (head3 < 0 && string.Equals(symbol, "B"))
+                return;
+
             if (head3 < tape3.Count())
             {
                 tape3[head3] = symbol;
@@ -198,10 +207,6 @@ namespace MaquinaDeTuringReversivel
                 case "_":
                     break;
             }
-            if (head1 < 0)
-            {
-                head1 = 0;
-            }
         }
 
         private void Move2(string direction)
@@ -217,10 +222,6 @@ namespace MaquinaDeTuringReversivel
                 case "_":
                     break;
             }
-            if (head2 < 0)
-            {
-                head2 = 0;
-            }
         }
 
         private void Move3(string direction)
@@ -235,10 +236,6 @@ namespace MaquinaDeTuringReversivel
                     break;
                 case "_":
                     break;
-            }
-            if (head3 < 0)
-            {
-                head3 = 0;
             }
         }
     }
