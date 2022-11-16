@@ -10,18 +10,12 @@ namespace MaquinaDeTuringReversivel
     {
         public string state;
 
-        private bool readHistory;
-
         private int head1;
         private List<string> tape1;
         public string Symbol1
         {
             get
             {
-                if (readHistory)
-                {
-                    return "/";
-                }
                 if (head1 < tape1.Count() && head1 >= 0)
                 {
                     return tape1[head1];
@@ -36,10 +30,6 @@ namespace MaquinaDeTuringReversivel
         {
             get
             {
-                if (!readHistory)
-                {
-                    return "/";
-                }
                 if (head2 < tape2.Count() && head2 >= 0)
                 {
                     return tape2[head2];
@@ -54,10 +44,6 @@ namespace MaquinaDeTuringReversivel
         {
             get
             {
-                if (readHistory)
-                {
-                    return "/";
-                }
                 if (head3 < tape3.Count() && head3 >= 0)
                 {
                     return tape3[head3];
@@ -77,12 +63,12 @@ namespace MaquinaDeTuringReversivel
             this.tape1 = tape.Select( c => c.ToString()).ToList();
             this.tape2 = new List<string>();
             this.tape3 = new List<string>();
+            this.tape2.Add("B");
+            this.tape3.Add("B");
 
             this.transitions = transitions;
 
             this.state = transitions.InitialState;
-
-            readHistory = false;
         }
 
         public bool Run(out string input, out string history, out string output)
@@ -91,9 +77,9 @@ namespace MaquinaDeTuringReversivel
             {
                 if (!Compute())
                 {
-                    input = tape1.ToString();
-                    history = tape2.ToString();
-                    output = tape3.ToString();
+                    input = string.Join("", tape1.ToArray());
+                    history = string.Join("", tape2.ToArray());
+                    output = string.Join("", tape3.ToArray());
 
                     return false;
                 }
@@ -125,21 +111,31 @@ namespace MaquinaDeTuringReversivel
 
         private void Act(string action1, string action2, string action3)
         {
-            if (readHistory)
+            if (string.Equals(action1, "R") || string.Equals(action1, "L") || string.Equals(action1, "_"))
             {
                 Move1(action1);
-                Write2(action2);
-                Move3(action3);
-
-                readHistory = false;
             }
             else
             {
                 Write1(action1);
-                Move2(action2);
-                Write3(action3);
+            }
 
-                readHistory = true;
+            if (string.Equals(action2, "R") || string.Equals(action2, "L") || string.Equals(action2, "_"))
+            {
+                Move2(action2);
+            }
+            else
+            {
+                Write2(action2);
+            }
+
+            if (string.Equals(action3, "R") || string.Equals(action3, "L") || string.Equals(action3, "_"))
+            {
+                Move3(action3);
+            }
+            else
+            {
+                Write3(action3);
             }
         }
 
@@ -207,6 +203,11 @@ namespace MaquinaDeTuringReversivel
                 case "_":
                     break;
             }
+
+            while (head1 >= tape1.Count())
+            {
+                tape1.Add("B");
+            }
         }
 
         private void Move2(string direction)
@@ -222,6 +223,11 @@ namespace MaquinaDeTuringReversivel
                 case "_":
                     break;
             }
+
+            while (head2 >= tape2.Count())
+            {
+                tape2.Add("B");
+            }
         }
 
         private void Move3(string direction)
@@ -236,6 +242,11 @@ namespace MaquinaDeTuringReversivel
                     break;
                 case "_":
                     break;
+            }
+
+            while (head3 >= tape3.Count())
+            {
+                tape3.Add("B");
             }
         }
     }

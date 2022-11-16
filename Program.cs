@@ -93,6 +93,22 @@ namespace MaquinaDeTuringReversivel
                 Console.Write("Não computou");
             }
 
+            ReversibleTransitions rTransitions = Reversifier.MakeReversible(transitions, tapeAlphabet);
+
+            ReversibleTuringMachine rTM = new ReversibleTuringMachine(input.ToCharArray(), rTransitions);
+
+            Console.WriteLine("\n\nReversível:");
+
+            Console.Write(rTransitions.ToString());
+
+            if (rTM.Run(out _, out _, out _))
+            {
+                Console.Write("Computou");
+            }
+            else
+            {
+                Console.Write("Não computou");
+            }
         }
     }
 }

@@ -12,11 +12,11 @@ namespace MaquinaDeTuringReversivel
         public string EndState => states.Last();
 
         private readonly Dictionary<QuadrupleIn, QuadrupleOut> quadruples;
-        private readonly string[] states;
+        private readonly List<string> states;
 
         public ReversibleTransitions(string[] states)
         {
-            this.states = states;
+            this.states = states.ToList();
 
             quadruples = new Dictionary<QuadrupleIn, QuadrupleOut>();
         }

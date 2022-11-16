@@ -66,9 +66,9 @@ namespace MaquinaDeTuringReversivel
         public bool Equals(QuadrupleIn other)
         {
             return string.Equals(other.inputState, inputState)
-                && string.Equals(other.inputSymbol1, inputSymbol1)
-                && string.Equals(other.inputSymbol2, inputSymbol2)
-                && string.Equals(other.inputSymbol3, inputSymbol3);
+                && (string.Equals(other.inputSymbol1, inputSymbol1) || string.Equals("/", inputSymbol1) || string.Equals("/", other.inputSymbol1))
+                && (string.Equals(other.inputSymbol2, inputSymbol2) || string.Equals("/", inputSymbol2) || string.Equals("/", other.inputSymbol2))
+                && (string.Equals(other.inputSymbol3, inputSymbol3) || string.Equals("/", inputSymbol3) || string.Equals("/", other.inputSymbol3));
         }
 
         public override string ToString()
