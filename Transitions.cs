@@ -44,6 +44,11 @@ namespace MaquinaDeTuringReversivel
             return quintuples[input];
         }
 
+        public IEnumerable<KeyValuePair<QuintupleIn, QuintupleOut>> GetAllTransitions()
+        {
+            return quintuples.AsEnumerable();
+        }
+
         public override string ToString()
         {
             string str = "";

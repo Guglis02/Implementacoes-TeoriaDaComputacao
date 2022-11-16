@@ -51,11 +51,11 @@ namespace MaquinaDeTuringReversivel
     public struct QuadrupleIn : IEquatable<QuadrupleIn>
     {
         public readonly string inputState;
-        public readonly char inputSymbol1;
-        public readonly char inputSymbol2;
-        public readonly char inputSymbol3;
+        public readonly string inputSymbol1;
+        public readonly string inputSymbol2;
+        public readonly string inputSymbol3;
 
-        public QuadrupleIn(string inputState, char inputSymbol1, char inputSymbol2, char inputSymbol3)
+        public QuadrupleIn(string inputState, string inputSymbol1, string inputSymbol2, string inputSymbol3)
         {
             this.inputState = inputState;
             this.inputSymbol1 = inputSymbol1;
@@ -80,11 +80,11 @@ namespace MaquinaDeTuringReversivel
     public struct QuadrupleOut
     {
         public readonly string outputState;
-        public readonly char outputAction1;
-        public readonly char outputAction2;
-        public readonly char outputAction3;
+        public readonly string outputAction1;
+        public readonly string outputAction2;
+        public readonly string outputAction3;
 
-        public QuadrupleOut(string outputState, char outputAction1, char outputAction2, char outputAction3)
+        public QuadrupleOut(string outputState, string outputAction1, string outputAction2, string outputAction3)
         {
             this.outputState = outputState;
             this.outputAction1 = outputAction1;

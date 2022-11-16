@@ -21,11 +21,16 @@ namespace MaquinaDeTuringReversivel
             quadruples = new Dictionary<QuadrupleIn, QuadrupleOut>();
         }
 
-        public void AddQuadruple(string inputState, char inputSymbol1, char inputSymbol2, char inputSymbol3, string outputSate, char outputAction1, char outputAction2, char outputAction3)
+        public void AddQuadruple(string inputState, string inputSymbol1, string inputSymbol2, string inputSymbol3, string outputSate, string outputAction1, string outputAction2, string outputAction3)
         {
             QuadrupleIn input = new QuadrupleIn(inputState, inputSymbol1, inputSymbol2, inputSymbol3);
             QuadrupleOut output = new QuadrupleOut(outputSate, outputAction1, outputAction2, outputAction3);
 
+            AddQuadruple(input, output);
+        }
+
+        public void AddQuadruple(QuadrupleIn input, QuadrupleOut output)
+        {
             quadruples.Add(input, output);
         }
 

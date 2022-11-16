@@ -13,56 +13,56 @@ namespace MaquinaDeTuringReversivel
         private bool readHistory;
 
         private int head1;
-        private char[] tape1;
-        public char Symbol1
+        private List<string> tape1;
+        public string Symbol1
         {
             get
             {
                 if (readHistory)
                 {
-                    return '/';
+                    return "/";
                 }
-                if (head1 < tape1.Length)
+                if (head1 < tape1.Count())
                 {
                     return tape1[head1];
                 }
-                return 'B';
+                return "B";
             }
         }
 
         private int head2;
-        private char[] tape2;
-        public char Symbol2
+        private List<string> tape2;
+        public string Symbol2
         {
             get
             {
                 if (!readHistory)
                 {
-                    return '/';
+                    return "/";
                 }
-                if (head2 < tape2.Length)
+                if (head2 < tape2.Count())
                 {
                     return tape2[head2];
                 }
-                return 'B';
+                return "B";
             }
         }
 
         private int head3;
-        private char[] tape3;
-        public char Symbol3
+        private List<string> tape3;
+        public string Symbol3
         {
             get
             {
                 if (readHistory)
                 {
-                    return '/';
+                    return "/";
                 }
-                if (head3 < tape3.Length)
+                if (head3 < tape3.Count())
                 {
                     return tape3[head3];
                 }
-                return 'B';
+                return "B";
             }
         }
 
@@ -74,9 +74,9 @@ namespace MaquinaDeTuringReversivel
             this.head2 = 0;
             this.head3 = 0;
 
-            this.tape1 = tape;
-            this.tape2 = "".ToCharArray();
-            this.tape3 = "".ToCharArray();
+            this.tape1 = tape.Select( c => c.ToString()).ToList();
+            this.tape2 = new List<string>();
+            this.tape3 = new List<string>();
 
             this.transitions = transitions;
 
@@ -123,7 +123,7 @@ namespace MaquinaDeTuringReversivel
             return true;
         }
 
-        private void Act(char action1, char action2, char action3)
+        private void Act(string action1, string action2, string action3)
         {
             if (readHistory)
             {
@@ -148,54 +148,54 @@ namespace MaquinaDeTuringReversivel
             this.state = state;
         }
 
-        private void Write1(char symbol)
+        private void Write1(string symbol)
         {
-            if (head1 < tape1.Length)
+            if (head1 < tape1.Count())
             {
                 tape1[head1] = symbol;
             }
             else
             {
-                tape1 = tape1.Append(symbol).ToArray();
+                tape1.Add(symbol);
             }
         }
 
-        private void Write2(char symbol)
+        private void Write2(string symbol)
         {
-            if (head2 < tape2.Length)
+            if (head2 < tape2.Count())
             {
                 tape2[head2] = symbol;
             }
             else
             {
-                tape2 = tape2.Append(symbol).ToArray();
+                tape2.Add(symbol);
             }
         }
 
-        private void Write3(char symbol)
+        private void Write3(string symbol)
         {
-            if (head3 < tape3.Length)
+            if (head3 < tape3.Count())
             {
                 tape3[head3] = symbol;
             }
             else
             {
-                tape3 = tape3.Append(symbol).ToArray();
+                tape3.Add(symbol);
             }
         }
 
-        private void Move1(char direction)
+        private void Move1(string direction)
         {
 
             switch (direction)
             {
-                case 'R':
+                case "R":
                     head1++;
                     break;
-                case 'L':
+                case "L":
                     head1--;
                     break;
-                case '_':
+                case "_":
                     break;
             }
             if (head1 < 0)
@@ -204,17 +204,17 @@ namespace MaquinaDeTuringReversivel
             }
         }
 
-        private void Move2(char direction)
+        private void Move2(string direction)
         {
             switch (direction)
             {
-                case 'R':
+                case "R":
                     head2++;
                     break;
-                case 'L':
+                case "L":
                     head2--;
                     break;
-                case '_':
+                case "_":
                     break;
             }
             if (head2 < 0)
@@ -223,17 +223,17 @@ namespace MaquinaDeTuringReversivel
             }
         }
 
-        private void Move3(char direction)
+        private void Move3(string direction)
         {
             switch (direction)
             {
-                case 'R':
+                case "R":
                     head3++;
                     break;
-                case 'L':
+                case "L":
                     head3--;
                     break;
-                case '_':
+                case "_":
                     break;
             }
             if (head3 < 0)
