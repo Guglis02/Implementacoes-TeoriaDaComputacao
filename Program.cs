@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace MaquinaDeTuringReversivel
 {
@@ -85,10 +83,11 @@ namespace MaquinaDeTuringReversivel
 
             TuringMachine turingMachine = new TuringMachine(input, transitions);
 
-            if (turingMachine.Run(out _))
+            if (turingMachine.Run())
             {
                 Console.Write("Computou");
-            } else
+            }
+            else
             {
                 Console.Write("Não computou");
             }
@@ -101,9 +100,9 @@ namespace MaquinaDeTuringReversivel
 
             Console.Write(rTransitions.ToString());
 
-            if (rTM.Run(out _, out _, out _))
+            if (rTM.Run())
             {
-                Console.Write("Computou");
+                Console.Write("\n Computou \n");
             }
             else
             {

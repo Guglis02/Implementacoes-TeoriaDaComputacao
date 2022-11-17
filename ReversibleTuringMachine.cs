@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MaquinaDeTuringReversivel
 {
@@ -60,7 +58,7 @@ namespace MaquinaDeTuringReversivel
             this.head2 = 0;
             this.head3 = 0;
 
-            this.tape1 = tape.Select( c => c.ToString()).ToList();
+            this.tape1 = tape.Select(c => c.ToString()).ToList();
             this.tape2 = new List<string>();
             this.tape3 = new List<string>();
             this.tape2.Add("B");
@@ -71,23 +69,30 @@ namespace MaquinaDeTuringReversivel
             this.state = transitions.InitialState;
         }
 
-        public bool Run(out string input, out string history, out string output)
+        public bool Run()
         {
+            string input;
+            string history;
+            string output;
+
             while (!string.Equals(state, transitions.EndState))
             {
                 if (!Compute())
                 {
-                    input = string.Join("", tape1.ToArray());
-                    history = string.Join("", tape2.ToArray());
-                    output = string.Join("", tape3.ToArray());
-
                     return false;
                 }
-            }
 
-            input = tape1.ToString();
-            history = tape2.ToString();
-            output = tape3.ToString();
+                input = String.Join(" | ", tape1);
+                history = String.Join(" | ", tape2);
+                output = String.Join(" | ", tape3);
+
+                Console.Clear();
+                Console.WriteLine("\n Input: " + input);
+                Console.WriteLine("\n History: " + history);
+                Console.WriteLine("\n Output: " + output);
+
+                System.Threading.Thread.Sleep(200);
+            }
 
             return true;
         }

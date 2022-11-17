@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MaquinaDeTuringReversivel
 {
@@ -34,19 +30,15 @@ namespace MaquinaDeTuringReversivel
             this.state = transitions.InitialState;
         }
 
-        public bool Run(out string output)
+        public bool Run()
         {
             while (!string.Equals(state, transitions.EndState))
             {
                 if (!Compute())
                 {
-                    output = tape.ToString();
-
                     return false;
                 }
             }
-
-            output = tape.ToString();
 
             return true;
         }
