@@ -75,16 +75,6 @@ namespace MaquinaDeTuringReversivel
             string history;
             string output;
 
-            input = String.Join(" | ", tape1);
-            history = String.Join(" | ", tape2);
-            output = String.Join(" | ", tape3);
-
-            Console.WriteLine("\n Input: " + input + $"({head1})");
-            Console.WriteLine("\n History: " + history + $"({head2})");
-            Console.WriteLine("\n Output: " + output + $"({head3})");
-
-            Console.WriteLine($"{state}, {Symbol1}, {Symbol2}, {Symbol3}");
-
             while (!string.Equals(state, transitions.EndState))
             {
                 if (!Compute())
@@ -97,11 +87,12 @@ namespace MaquinaDeTuringReversivel
                 history = String.Join(" | ", tape2);
                 output = String.Join(" | ", tape3);
 
-                Console.WriteLine("\n Input: " + input + $"({head1})");
-                Console.WriteLine("\n History: " + history + $"({head2})");
-                Console.WriteLine("\n Output: " + output + $"({head3})");
+                Console.Clear();
+                Console.WriteLine("\n Input: " + input);
+                Console.WriteLine("\n History: " + history);
+                Console.WriteLine("\n Output: " + output);
 
-                Console.WriteLine($"{state}, {Symbol1}, {Symbol2}, {Symbol3}");
+                System.Threading.Thread.Sleep(200);
             }
 
             return true;
