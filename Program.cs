@@ -53,11 +53,6 @@ namespace MaquinaDeTuringReversivel
 
             Regex pattern = new Regex(@"\((?<InputState>.+),(?<InputSymbol>.+)\)=\((?<OutputState>.+),(?<OutputSymbol>.+),(?<OutputDirection>.+)\)");
 
-            //Console.WriteLine($"Numero de estados = {numberOfStates}\n" +
-            //    $"Tamanho alfabeto de entrada = {inputAlphabetSize}\n" +
-            //    $"Tamanho alfabeto da fita = {tapeAlphabetSize}\n" +
-            //    $"N de transicoes = {numberOfTransitions}\n");
-
             Transitions transitions = new Transitions(states);
 
             foreach (string line in lines)
@@ -70,14 +65,10 @@ namespace MaquinaDeTuringReversivel
                                             match.Groups["OutputState"].Value,
                                             match.Groups["OutputSymbol"].Value[0],
                                             match.Groups["OutputDirection"].Value);
-
-                    //Console.WriteLine($"Estado atual {match.Groups["InputState"].Value};" +
-                    //    $"Simbolo lido {match.Groups["InputSymbol"].Value};" +
-                    //    $"Proximo estado {match.Groups["OutputState"].Value};" +
-                    //    $"Simbolo escrito {match.Groups["OutputSymbol"].Value};" +
-                    //    $"Movimento {match.Groups["OutputDirection"].Value}");
                 }
             }
+
+            Console.WriteLine("Ordinária:");
 
             Console.Write(transitions.ToString());
 
@@ -102,11 +93,11 @@ namespace MaquinaDeTuringReversivel
 
             if (rTM.Run())
             {
-                Console.Write("\n Computou \n");
+                Console.Write("Computou\n");
             }
             else
             {
-                Console.Write("Não computou");
+                Console.Write("Não computou\n");
             }
         }
     }

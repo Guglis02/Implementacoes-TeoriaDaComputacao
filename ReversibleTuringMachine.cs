@@ -86,13 +86,14 @@ namespace MaquinaDeTuringReversivel
                 input = String.Join(" | ", tape1);
                 history = String.Join(" | ", tape2);
                 output = String.Join(" | ", tape3);
-
-                Console.Clear();
+                
+                // Exibe fitas em tempo real.
+                /*Console.Clear();
                 Console.WriteLine("\n Input: " + input);
                 Console.WriteLine("\n History: " + history);
                 Console.WriteLine("\n Output: " + output);
 
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(200);*/
             }
 
             return true;

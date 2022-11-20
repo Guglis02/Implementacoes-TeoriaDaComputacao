@@ -54,7 +54,7 @@ namespace MaquinaDeTuringReversivel
             lastState = $"A{output.outputState}";
             rTransitions.AddQuadruple(inp, outp);
 
-            // move p/ esquerda
+            // move para esquerda
 
             inp = new QuadrupleIn(lastState, "B", step.ToString(), "B");
             outp = new QuadrupleOut("R1", "L", "_", "_");
