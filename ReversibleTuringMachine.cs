@@ -55,8 +55,8 @@ namespace MaquinaDeTuringReversivel
         public ReversibleTuringMachine(char[] tape, ReversibleTransitions transitions)
         {
             this.head1 = 0;
-            this.head2 = -1;
-            this.head3 = -1;
+            this.head2 = 0;
+            this.head3 = 0;
 
             this.tape1 = tape.Select(c => c.ToString()).ToList();
             this.tape2 = new List<string>();
@@ -71,21 +71,23 @@ namespace MaquinaDeTuringReversivel
 
         public bool Run()
         {
-            string input;
-            string history;
-            string output;
+            string input = String.Join(" | ", tape1);
+            string history = String.Join(" | ", tape2);
+            string output = String.Join(" | ", tape3);
 
             while (!string.Equals(state, transitions.EndState))
             {
-                if (!Compute())
-                {
-                    Console.WriteLine(transitions.ToString());
-                    return false;
-                }
 
                 input = String.Join(" | ", tape1);
                 history = String.Join(" | ", tape2);
                 output = String.Join(" | ", tape3);
+                if (!Compute())
+                {
+                    Console.WriteLine("\n Input: " + input);
+                    Console.WriteLine("\n History: " + history);
+                    Console.WriteLine("\n Output: " + output);
+                    return false;
+                }
                 
                 // Exibe fitas em tempo real.
                 /*Console.Clear();
@@ -93,9 +95,14 @@ namespace MaquinaDeTuringReversivel
                 Console.WriteLine("\n History: " + history);
                 Console.WriteLine("\n Output: " + output);
 
+                Console.WriteLine($"\n State = {state}, symbols = {Symbol1}, {Symbol2}, {Symbol3}");
+
                 System.Threading.Thread.Sleep(200);*/
             }
 
+            Console.WriteLine("\n Input: " + input);
+            Console.WriteLine("\n History: " + history);
+            Console.WriteLine("\n Output: " + output);
             return true;
         }
 

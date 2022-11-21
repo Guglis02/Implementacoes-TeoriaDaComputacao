@@ -7,22 +7,16 @@ namespace MaquinaDeTuringReversivel
     {
         public static ReversibleTransitions MakeReversible(Transitions transitions, string[] alphabet)
         {
-            string[] states = { "A1", $"A{transitions.EndState}", "C1" };
+            string[] states = { $"A{transitions.InitialState}", $"A{transitions.EndState}", $"C{transitions.InitialState}" };
 
             ReversibleTransitions rTransitions = new ReversibleTransitions(states);
 
             int step = 0;
             string lastState = "";
 
-            KeyValuePair<QuintupleIn, QuintupleOut> last = transitions.GetAllTransitions().Last();
-
             // computa
             foreach (KeyValuePair<QuintupleIn, QuintupleOut> pair in transitions.GetAllTransitions())
             {
-                if (pair.Equals(last))
-                {
-                    continue;
-                }
 
                 step++;
 
@@ -38,26 +32,10 @@ namespace MaquinaDeTuringReversivel
                 rTransitions.AddQuadruple(secondIn, secondOut);
             }
 
-            step++;
-
-            QuintupleIn input = last.Key;
-            QuintupleOut output = last.Value;
-
-            QuadrupleIn inp = new QuadrupleIn($"A{input.inputState}", "B", "/", "B");
-            QuadrupleOut outp = new QuadrupleOut($"A{step}'", "B", "R", "B");
-
-            rTransitions.AddQuadruple(inp, outp);
-
-            inp = new QuadrupleIn($"A{step}'", "/", "B", "/");
-            outp = new QuadrupleOut($"A{output.outputState}", "_", step.ToString(), "_");
-
-            lastState = $"A{output.outputState}";
-            rTransitions.AddQuadruple(inp, outp);
-
             // move para esquerda
 
-            inp = new QuadrupleIn(lastState, "B", step.ToString(), "B");
-            outp = new QuadrupleOut("R1", "L", "_", "_");
+            QuadrupleIn inp = new QuadrupleIn(lastState, "B", step.ToString(), "B");
+            QuadrupleOut outp = new QuadrupleOut("R1", "L", "_", "_");
 
             rTransitions.AddQuadruple(inp, outp);
 
@@ -116,26 +94,22 @@ namespace MaquinaDeTuringReversivel
 
             KeyValuePair<QuintupleIn, QuintupleOut> first = transitions.GetAllTransitions().Last();
 
-            input = first.Key;
-            output = first.Value;
+            QuintupleIn input = first.Key;
+            QuintupleOut output = first.Value;
 
             inp = new QuadrupleIn($"C{output.outputState}", "/", step.ToString(), "/");
             outp = new QuadrupleOut($"C{step}'", "_", "B", "_");
 
-            rTransitions.AddQuadruple(inp, outp);
+            /*rTransitions.AddQuadruple(inp, outp);
 
             inp = new QuadrupleIn($"C{step}'", "B", "/", "B");
             outp = new QuadrupleOut($"C{input.inputState}", "B", "L", "B");
 
             rTransitions.AddQuadruple(inp, outp);
 
-            step--;
+            step--;*/
             foreach (KeyValuePair<QuintupleIn, QuintupleOut> pair in transitions.GetAllTransitions().Reverse())
             {
-                if (pair.Equals(first))
-                {
-                    continue;
-                }
 
                 input = pair.Key;
                 output = pair.Value;

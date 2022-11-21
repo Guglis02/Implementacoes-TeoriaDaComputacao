@@ -36,10 +36,12 @@ namespace MaquinaDeTuringReversivel
             {
                 if (!Compute())
                 {
+                    Console.WriteLine(tape.ToString());
                     return false;
                 }
             }
 
+            Console.WriteLine(String.Join(" | ", tape));
             return true;
         }
 
