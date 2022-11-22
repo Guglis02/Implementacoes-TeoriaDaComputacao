@@ -53,6 +53,11 @@ namespace MaquinaDeTuringReversivel
 
             Regex pattern = new Regex(@"\((?<InputState>.+),(?<InputSymbol>.+)\)=\((?<OutputState>.+),(?<OutputSymbol>.+),(?<OutputDirection>.+)\)");
 
+            Console.WriteLine($"Numero de estados = {numberOfStates}\n" +
+                $"Tamanho alfabeto de entrada = {inputAlphabetSize}\n" +
+                $"Tamanho alfabeto da fita = {tapeAlphabetSize}\n" +
+                $"Numero de transicoes = {numberOfTransitions}\n");
+
             Transitions transitions = new Transitions(states);
 
             foreach (string line in lines)

@@ -22,3 +22,11 @@ C:\Users\Cliente\Desktop\Estudos\6 sexto\teoria\turingReversivel\ReversibleTurin
 C:\Users\Cliente\Desktop\Estudos\6 sexto\teoria\turingReversivel\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.csproj.CoreCompileInputs.cache
 C:\Users\Cliente\Desktop\Estudos\6 sexto\teoria\turingReversivel\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.exe
 C:\Users\Cliente\Desktop\Estudos\6 sexto\teoria\turingReversivel\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.pdb
+C:\Users\Gmfreitas\Documents\ReversibleTuringMachine\bin\Debug\MaquinaDeTuringReversivel.exe.config
+C:\Users\Gmfreitas\Documents\ReversibleTuringMachine\bin\Debug\MaquinaDeTuringReversivel.exe
+C:\Users\Gmfreitas\Documents\ReversibleTuringMachine\bin\Debug\MaquinaDeTuringReversivel.pdb
+C:\Users\Gmfreitas\Documents\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.csproj.AssemblyReference.cache
+C:\Users\Gmfreitas\Documents\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.csproj.SuggestedBindingRedirects.cache
+C:\Users\Gmfreitas\Documents\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.csproj.CoreCompileInputs.cache
+C:\Users\Gmfreitas\Documents\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.exe
+C:\Users\Gmfreitas\Documents\ReversibleTuringMachine\obj\Debug\MaquinaDeTuringReversivel.pdb

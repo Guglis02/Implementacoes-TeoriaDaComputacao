@@ -6,6 +6,8 @@ namespace MaquinaDeTuringReversivel
 {
     internal class ReversibleTuringMachine
     {
+        private const bool RealtimeTapePrint = false;
+
         public string state;
 
         private int head1;
@@ -88,21 +90,28 @@ namespace MaquinaDeTuringReversivel
                     Console.WriteLine("\n Output: " + output);
                     return false;
                 }
-                
+
                 // Exibe fitas em tempo real.
-                /*Console.Clear();
+                if (RealtimeTapePrint)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\n Input: " + input);
+                    Console.WriteLine("\n History: " + history);
+                    Console.WriteLine("\n Output: " + output);
+
+                    Console.WriteLine($"\n State = {state}, symbols = {Symbol1}, {Symbol2}, {Symbol3}");
+
+                    System.Threading.Thread.Sleep(150);
+                }
+            }
+
+            if (!RealtimeTapePrint)
+            {
                 Console.WriteLine("\n Input: " + input);
                 Console.WriteLine("\n History: " + history);
                 Console.WriteLine("\n Output: " + output);
-
-                Console.WriteLine($"\n State = {state}, symbols = {Symbol1}, {Symbol2}, {Symbol3}");
-
-                System.Threading.Thread.Sleep(200);*/
             }
 
-            Console.WriteLine("\n Input: " + input);
-            Console.WriteLine("\n History: " + history);
-            Console.WriteLine("\n Output: " + output);
             return true;
         }
 
