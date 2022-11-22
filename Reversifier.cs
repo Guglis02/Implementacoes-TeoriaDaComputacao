@@ -14,9 +14,15 @@ namespace MaquinaDeTuringReversivel
             int step = 0;
             string lastState = "";
 
+            KeyValuePair<QuintupleIn, QuintupleOut> last = transitions.GetAllTransitions().Last();
+
             // computa
             foreach (KeyValuePair<QuintupleIn, QuintupleOut> pair in transitions.GetAllTransitions())
             {
+                if (pair.Equals(last))
+                {
+                    continue;
+                }
 
                 step++;
 
@@ -32,10 +38,26 @@ namespace MaquinaDeTuringReversivel
                 rTransitions.AddQuadruple(secondIn, secondOut);
             }
 
+            step++;
+
+            QuintupleIn input = last.Key;
+            QuintupleOut output = last.Value;
+
+            QuadrupleIn inp = new QuadrupleIn($"A{input.inputState}", "B", "/", "B");
+            QuadrupleOut outp = new QuadrupleOut($"A{step}'", "B", "R", "B");
+
+            rTransitions.AddQuadruple(inp, outp);
+
+            inp = new QuadrupleIn($"A{step}'", "/", "B", "/");
+            outp = new QuadrupleOut($"A{output.outputState}", "_", step.ToString(), "_");
+
+            lastState = $"A{output.outputState}";
+            rTransitions.AddQuadruple(inp, outp);
+
             // move para esquerda
 
-            QuadrupleIn inp = new QuadrupleIn(lastState, "B", step.ToString(), "B");
-            QuadrupleOut outp = new QuadrupleOut("R1", "L", "_", "_");
+            inp = new QuadrupleIn(lastState, "B", step.ToString(), "B");
+            outp = new QuadrupleOut("R1", "L", "_", "_");
 
             rTransitions.AddQuadruple(inp, outp);
 
@@ -94,22 +116,26 @@ namespace MaquinaDeTuringReversivel
 
             KeyValuePair<QuintupleIn, QuintupleOut> first = transitions.GetAllTransitions().Last();
 
-            QuintupleIn input = first.Key;
-            QuintupleOut output = first.Value;
+            input = first.Key;
+            output = first.Value;
 
             inp = new QuadrupleIn($"C{output.outputState}", "/", step.ToString(), "/");
             outp = new QuadrupleOut($"C{step}'", "_", "B", "_");
 
-            /*rTransitions.AddQuadruple(inp, outp);
+            rTransitions.AddQuadruple(inp, outp);
 
             inp = new QuadrupleIn($"C{step}'", "B", "/", "B");
             outp = new QuadrupleOut($"C{input.inputState}", "B", "L", "B");
 
             rTransitions.AddQuadruple(inp, outp);
 
-            step--;*/
+            step--;
             foreach (KeyValuePair<QuintupleIn, QuintupleOut> pair in transitions.GetAllTransitions().Reverse())
             {
+                if (pair.Equals(first))
+                {
+                    continue;
+                }
 
                 input = pair.Key;
                 output = pair.Value;

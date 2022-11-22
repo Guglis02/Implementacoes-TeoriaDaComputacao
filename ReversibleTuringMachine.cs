@@ -55,8 +55,8 @@ namespace MaquinaDeTuringReversivel
         public ReversibleTuringMachine(char[] tape, ReversibleTransitions transitions)
         {
             this.head1 = 0;
-            this.head2 = 0;
-            this.head3 = 0;
+            this.head2 = -1;
+            this.head3 = -1;
 
             this.tape1 = tape.Select(c => c.ToString()).ToList();
             this.tape2 = new List<string>();
