@@ -64,9 +64,12 @@ findfirst' x c = if x == (snd (last c)) then fst(last c) else findfirst' x (init
 
 restorenames :: TermNL -> Contexto -> Term
 restorenames (VarNL x) c = Var (findfirst' x c)
--- TODO
---restorenames (AbsNL t) c = 
---restorenames (AppNL t1 t2) c = 
+restorenames (AbsNL t) c = let charc = geraChar c ['a'..'z']
+                               c' = insertC charc c
+                           in (Abs charc (restorenames t c'))
+restorenames (AppNL t1 t2) c = let t1' = restorenames t1 c
+                                   t2' = restorenames t2 c
+                               in App t1' t2'
 
 -- Verifica se o char c está no contexto
 verificaCC :: Contexto -> Char -> Bool
