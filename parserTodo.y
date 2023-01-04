@@ -49,10 +49,17 @@ data Token
 -- Função que recebe uma string e gera uma lista de tokens
 lexer :: String -> [Token]
 lexer [] = []
-lexer _  = undefined
+lexer (c:cs)
+	| isSpace c = lexer cs
+	| c == '.' = TokenPoint : lexer cs
+	| c == '(' = TokenOB : lexer cs
+	| c == ')' = TokenCB : lexer cs
+	| isAlpha c = let (a, rest) = span isAlpha(c:cs)
+				  in if (a == "lam") then TokenLam : lexer rest
+					 else (TokenVar c) : lexer rest
 
 
 
-main = getContents >>= print . parserlamb .lexer
+main = getContents >>= print . parserlamb . lexer
 
 }

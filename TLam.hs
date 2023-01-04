@@ -32,12 +32,12 @@ data TermNL = VarNL Int
 -- Contexto de variaveis livres
 type Contexto = [(Char,Int)]
 
--- exemplo de contexto
+-- Exemplo de contexto
 gamma :: Contexto
 gamma = [ ('z', 2), ('y', 1), ('x', 0)]
 
 
--- removenames (Abs 'x' (Var 'x')) = AbsNL (VarNL 0)
+-- Removenames (Abs 'x' (Var 'x')) = AbsNL (VarNL 0)
 -- nota : (Contexto, TermNL) 
 removenames :: Term -> Contexto -> TermNL
 removenames (Var x) c   = VarNL (findfirst x c)
@@ -47,30 +47,20 @@ removenames (App t1 t2) c = let t1' = removenames t1 c
                                 t2' = removenames t2 c
                             in AppNL t1' t2' 
 
-
-insertC :: Char -> Contexto -> Contexto
-insertC x c = [(fst a,(snd a)+1) |  a <- c]++[(x,0)]
-
-
-findfirst :: Char -> Contexto -> Int
-findfirst x c = if x == (fst (last c)) then snd(last c) else findfirst x (init c)
-
 t1 = (App (Abs 'b' (App (Var 'b') (Abs 'x' (Var 'b')))) (App (Var 'a') (Abs 'z' (Var 'a'))))
-
-
 
 context1 :: Contexto
 context1 = [('a',1),('b',0)]
 
---findfirst :: Char -> Contexto -> Int
--- findfirst retorna a primeira ocorrencia de x em c (buscando da direita para a esquerda)
--- insertC :: Char -> Contexto -> Contexto == insere x na direita do contexto e soma 
--- um nas outras
--- olhar a definição de map em haskell
+findfirst :: Char -> Contexto -> Int
+findfirst x [] = error "Variável não encontrada no contexto"
+findfirst x c = if x == (fst (last c)) then snd(last c) else findfirst x (init c)
+
+insertC :: Char -> Contexto -> Contexto
+insertC x c = [(fst a,(snd a)+1) |  a <- c]++[(x,0)]
 
 findfirst' :: Int -> Contexto -> Char
 findfirst' x c = if x == (snd (last c)) then fst(last c) else findfirst' x (init c)
-
 
 restorenames :: TermNL -> Contexto -> Term
 restorenames (VarNL x) c = Var (findfirst' x c)
@@ -78,17 +68,16 @@ restorenames (VarNL x) c = Var (findfirst' x c)
 --restorenames (AbsNL t) c = 
 --restorenames (AppNL t1 t2) c = 
 
--- TODO
--- verifica se o char c está no contexto
+-- Verifica se o char c está no contexto
 verificaCC :: Contexto -> Char -> Bool
 verificaCC [] c = False
-verificaCC ((a,_):b) c = undefined
+verificaCC ((a,_):b) c = if (a==c) then True 
+                         else verificaCC b c
 
---TODO
--- gera uma var nova que não está no contexto 
+-- Gera uma var nova que não está no contexto 
 geraChar :: Contexto -> [Char] -> Char
 geraChar c [] = error "todas as letras usadas"
-geraChar c (a:b) = undefined
+geraChar c (a:b) = if (verificaCC c a) then (geraChar c b) else a
 -----------------------------------------------------
 
 
@@ -100,7 +89,6 @@ subs :: Char -> Term -> Term -> Term
 subs x t (Var y) = if (x == y) then t else (Var y)
 subs x t (Abs y t12) = if ((x /= y) && (notIn x (freeVars t12))) then (Abs x (subs x t t12)) else (Abs y t12)
 subs x t (App t1 t2) = App (subs x t t1) (subs x t t2)
-
 
 notIn :: Char -> [Char] -> Bool
 notIn x y = notElem x y          
@@ -120,7 +108,7 @@ eval (App t1 t2) = let t1'= eval t1
                    in (App t1' t2)
 eval x                    = x              
 
--- ToDo: funcao que aplica recursivamente eval ateh que nao tenha mais redex
+-- Funcao que aplica recursivamente eval ate que nao tenha mais redex
 interpret :: Term -> Term
 interpret t = let t' = eval t
               in if (t==t') then t else interpret t'
