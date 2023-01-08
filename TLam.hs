@@ -83,7 +83,41 @@ geraChar c [] = error "todas as letras usadas"
 geraChar c (a:b) = if (verificaCC c a) then (geraChar c b) else a
 -----------------------------------------------------
 
+-----------------------------------------------------
+---------Shifting em termos lambda sem nome ---------
+-- Shifting recebe tres parametros: o valor de incremento "d", 
+-- o valor de cutoff "c" (a partir de qual numero deve ser 
+--incrementado e o termo -----------------------------------
+shifting :: Int -> Int -> TermNL -> TermNL
+shifting d c (VarNL k) = if (k < c) then (VarNL k) else (VarNL (k+d))
+shifting d c (AbsNL t) = (AbsNL (shifting d (c + 1) t))
+shifting d c (AppNL t1 t2) = AppNL (shifting d c t1) (shifting d c t2)
 
+
+{--
+
+
+shifting 2 0 (l.l. 2(0 2)) = l . shifting 2 1 (l. 2 (0 2))
+                           = l . l .shifting 2 2 (2 (0 2))
+                           = l . l. (shifting 2 2 2) (shifting 2 2 (0 2))
+                           = l . l. 4 ( (shifting 2 2 0) (shifting 2 2 2))
+                           = l . l. 4 (0 4)
+
+
+--}
+
+
+----- Substitution -----------------------------------------
+
+-----------------------------SUBS----------------------------------
+{--
+subs ::  (Int, TermNL) -> TermNL -> TermNL
+
+--}
+
+-- Exemplo : [0 -> 1 (l . 2)] (0 (l . 1)) = (1 (l . 2) (l . 2 ( l. 3))
+-- (0, AppNL (VarNL 1) (AbsNL (VarNL 2))) (AppNL (VarNL 0) (AbsNL (VarNL 1)))
+-- subs (0, AppNL (VarNL 1) (AbsNL (VarNL 2))) (AppNL (VarNL 0) (AbsNL (VarNL 1)))
 
 
 -- Funcoes que serao utilizadas na semantica do CL
