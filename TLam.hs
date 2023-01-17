@@ -2,12 +2,13 @@
 module TLam where
 
 import Data.List
+import ParserLambda
 
 -- Definindo a sintaxe abstrata do calculo lambda
 
-data Term = Var Char
-          | Abs Char Term
-          | App Term Term deriving (Show, Eq)
+-- data Term = Var Char
+--           | Abs Char Term
+--           | App Term Term deriving (Show, Eq)
 
 
 -- Sintaxe concreta
@@ -119,13 +120,15 @@ subs ::  (Int, TermNL) -> TermNL -> TermNL
 -- (0, AppNL (VarNL 1) (AbsNL (VarNL 2))) (AppNL (VarNL 0) (AbsNL (VarNL 1)))
 -- subs (0, AppNL (VarNL 1) (AbsNL (VarNL 2))) (AppNL (VarNL 0) (AbsNL (VarNL 1)))
 
-
--- Funcoes que serao utilizadas na semantica do CL
+--------------------------------------------
+-- TODO: fazer as funcoes semanticas para termos Nameless
+--
 
 subs :: Char -> Term -> Term -> Term
 subs x t (Var y) = if (x == y) then t else (Var y)
 subs x t (Abs y t12) = if ((x /= y) && (notIn x (freeVars t12))) then (Abs x (subs x t t12)) else (Abs y t12)
 subs x t (App t1 t2) = App (subs x t t1) (subs x t t2)
+
 
 notIn :: Char -> [Char] -> Bool
 notIn x y = notElem x y          
@@ -143,7 +146,7 @@ eval (App (Abs x t12) t2) = if (isVal t2) then subs x t2 t12
                                  in (App (Abs x t12) t2')
 eval (App t1 t2) = let t1'= eval t1
                    in (App t1' t2)
-eval x                    = x              
+eval x                    = x                  
 
 -- Funcao que aplica recursivamente eval ate que nao tenha mais redex
 interpret :: Term -> Term
@@ -151,22 +154,4 @@ interpret t = let t' = eval t
               in if (t==t') then t else interpret t'
 
 
-
---main = getContents >>= print . interpret . parserlamb .lexer
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+main = getContents >>= print . restorenames . interpret . parserlamb .lexer
