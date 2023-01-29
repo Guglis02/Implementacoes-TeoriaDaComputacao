@@ -59,7 +59,4 @@ lexer (c:cs)
 					 else (TokenVar c) : lexer rest
 
 
-
-main = getContents >>= print . parserlamb . lexer
-
 }

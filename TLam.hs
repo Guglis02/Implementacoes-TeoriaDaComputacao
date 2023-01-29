@@ -108,11 +108,43 @@ shifting 2 0 (l.l. 2(0 2)) = l . shifting 2 1 (l. 2 (0 2))
 --}
 
 
------ Substitution -----------------------------------------
+-- Funções semanticas para Term
+
+-- subs :: Char -> Term -> Term -> Term
+-- subs x t (Var y) = if (x == y) then t else (Var y)
+-- subs x t (Abs y t12) = if ((x /= y) && (notIn x (freeVars t12))) then (Abs x (subs x t t12)) else (Abs y t12)
+-- subs x t (App t1 t2) = App (subs x t t1) (subs x t t2)
+
+
+-- notIn :: Char -> [Char] -> Bool
+-- notIn x y = notElem x y          
+
+-- isVal :: Term -> Bool
+-- isVal (Abs x t21) = True
+-- isVal (Var x)     = True
+-- isVal _           = False
+
+
+-- -- Semantica operacional Call-by-value (ordem de avaliacao)
+-- eval :: Term -> Term
+-- eval (App (Abs x t12) t2) = if (isVal t2) then subs x t2 t12 
+--                             else let t2' = eval t2
+--                                  in (App (Abs x t12) t2')
+-- eval (App t1 t2) = let t1'= eval t1
+--                    in (App t1' t2)
+-- eval x                    = x                  
+
+-- -- Funcao que aplica recursivamente eval ate que nao tenha mais redex
+-- interpret :: Term -> Term
+-- interpret t = let t' = eval t
+--               in if (t==t') then t else interpret t'
+
+
+-- Funções semanticas para TermNL
 
 -----------------------------SUBS----------------------------------
 {--
-subs ::  (Int, TermNL) -> TermNL -> TermNL
+
 
 --}
 
@@ -124,34 +156,33 @@ subs ::  (Int, TermNL) -> TermNL -> TermNL
 -- TODO: fazer as funcoes semanticas para termos Nameless
 --
 
-subs :: Char -> Term -> Term -> Term
-subs x t (Var y) = if (x == y) then t else (Var y)
-subs x t (Abs y t12) = if ((x /= y) && (notIn x (freeVars t12))) then (Abs x (subs x t t12)) else (Abs y t12)
-subs x t (App t1 t2) = App (subs x t t1) (subs x t t2)
+subs :: (Int, TermNL) -> TermNL -> TermNL
+subs (x, t) (VarNL y) = if x == y then t else VarNL y
+subs (x, t) (AbsNL t12) = AbsNL (subs (x + 1, shifting 1 0 t) t12)
+subs (x, t) (AppNL t1 t2) = AppNL (subs (x,t) t1) (subs (x,t) t2)
 
-
-notIn :: Char -> [Char] -> Bool
-notIn x y = notElem x y          
-
-isVal :: Term -> Bool
-isVal (Abs x t21) = True
-isVal (Var x)     = True
-isVal _           = False
-
+isVal :: TermNL -> Bool
+isVal (AbsNL t21) = True
+isVal (VarNL x)     = True
+isVal _           = True
 
 -- Semantica operacional Call-by-value (ordem de avaliacao)
-eval :: Term -> Term
-eval (App (Abs x t12) t2) = if (isVal t2) then subs x t2 t12 
+eval :: TermNL -> TermNL
+eval (AppNL (AbsNL t12) t2) = if (isVal t2) then subs (0, t2) t12 
                             else let t2' = eval t2
-                                 in (App (Abs x t12) t2')
-eval (App t1 t2) = let t1'= eval t1
-                   in (App t1' t2)
+                                 in (AppNL (AbsNL t12) t2')
+eval (AppNL t1 t2) = let t1'= eval t1
+                   in (AppNL t1' t2)
 eval x                    = x                  
 
 -- Funcao que aplica recursivamente eval ate que nao tenha mais redex
-interpret :: Term -> Term
+interpret :: TermNL -> TermNL
 interpret t = let t' = eval t
               in if (t==t') then t else interpret t'
 
 
-main = getContents >>= print . restorenames . interpret . parserlamb .lexer
+aux :: Term -> Term
+aux t = restorenames (interpret (removenames t gamma)) gamma
+
+main :: IO ()
+main = getContents >>= print . aux . parserlamb . lexer

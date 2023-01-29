@@ -181,10 +181,6 @@ lexer (c:cs)
 	| isAlpha c = let (a, rest) = span isAlpha(c:cs)
 				  in if (a == "lam") then TokenLam : lexer rest
 					 else (TokenVar c) : lexer rest
-
-
-
-main = getContents >>= print . parserlamb .lexer
 {-# LINE 1 "templates/GenericTemplate.hs" #-}
 -- $Id: GenericTemplate.hs,v 1.26 2005/01/14 14:47:22 simonmar Exp $
 
