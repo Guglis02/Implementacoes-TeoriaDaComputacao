@@ -1,4 +1,11 @@
 
+-- Trabalho de Teoria da Computação - ELC1008
+-- Calculo Lambda em Haskell
+
+-- Guilherme Medeiros da Cunha
+-- Gustavo Machado de Freitas
+-- Juliano de Mello Pasa
+
 module TLam where
 
 import Data.List
@@ -12,7 +19,7 @@ import ParserLambda
 
 
 -- Sintaxe concreta
--- "(lam x . x) y"
+-- "((lam x . x) y)"
 -- Sintaxe abstrata
 -- App (Abs 'x' (Var 'x'))(Var 'y')
 
@@ -94,20 +101,6 @@ shifting d c (VarNL k) = if (k < c) then (VarNL k) else (VarNL (k+d))
 shifting d c (AbsNL t) = (AbsNL (shifting d (c + 1) t))
 shifting d c (AppNL t1 t2) = AppNL (shifting d c t1) (shifting d c t2)
 
-
-{--
-
-
-shifting 2 0 (l.l. 2(0 2)) = l . shifting 2 1 (l. 2 (0 2))
-                           = l . l .shifting 2 2 (2 (0 2))
-                           = l . l. (shifting 2 2 2) (shifting 2 2 (0 2))
-                           = l . l. 4 ( (shifting 2 2 0) (shifting 2 2 2))
-                           = l . l. 4 (0 4)
-
-
---}
-
-
 -- Funções semanticas para Term
 
 -- subs :: Char -> Term -> Term -> Term
@@ -142,20 +135,6 @@ shifting 2 0 (l.l. 2(0 2)) = l . shifting 2 1 (l. 2 (0 2))
 
 -- Funções semanticas para TermNL
 
------------------------------SUBS----------------------------------
-{--
-
-
---}
-
--- Exemplo : [0 -> 1 (l . 2)] (0 (l . 1)) = (1 (l . 2) (l . 2 ( l. 3))
--- (0, AppNL (VarNL 1) (AbsNL (VarNL 2))) (AppNL (VarNL 0) (AbsNL (VarNL 1)))
--- subs (0, AppNL (VarNL 1) (AbsNL (VarNL 2))) (AppNL (VarNL 0) (AbsNL (VarNL 1)))
-
---------------------------------------------
--- TODO: fazer as funcoes semanticas para termos Nameless
---
-
 subs :: (Int, TermNL) -> TermNL -> TermNL
 subs (x, t) (VarNL y) = if x == y then t else VarNL y
 subs (x, t) (AbsNL t12) = AbsNL (subs (x + 1, shifting 1 0 t) t12)
@@ -181,8 +160,8 @@ interpret t = let t' = eval t
               in if (t==t') then t else interpret t'
 
 
-aux :: Term -> Term
-aux t = restorenames (interpret (removenames t gamma)) gamma
+namesHandler :: Term -> Term
+namesHandler t = restorenames (interpret (removenames t gamma)) gamma
 
-main :: IO ()
-main = getContents >>= print . aux . parserlamb . lexer
+main :: String -> IO ()
+main string = print (namesHandler (parserlamb (lexer string)))
